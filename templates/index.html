@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Fire Detection</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Hero section with background */
+    .hero {
+      height: 100vh;
+      background: no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Transparent overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4); /* dark shade for contrast */
+    }
+
+    /* Text content */
+    .content {
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+
+    .content h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.2); /* transparent white background */
+      padding: 20px 40px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .content button {
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: rgba(255, 69, 0, 0.9); /* fire-orange button */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .content button:hover {
+      background: rgba(255, 140, 0, 1); /* lighter orange on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="hero" style="background-image: url('{{ url_for('static', filename='/homepage.png') }}');">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>🔥 Welcome to AI Driven Fire Detection and Suppression System 🔥</h1>
+      <br>
+      <button onclick="window.location.href='/dashboard'">Go to Dashboard</button>
+    </div>
+  </div>
+</body>
+</html>

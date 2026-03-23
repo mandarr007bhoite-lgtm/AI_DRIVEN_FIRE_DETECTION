@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #0f172a, #1e1b4b, #1e293b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(17, 24, 39, 0.95);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(96,165,250,0.3);
+  overflow: hidden;
+  position: relative;
+}
+
+h2 {
+  color: #60a5fa;
+  margin-bottom: 25px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(96,165,250,0.5);
+}
+
+.admin-img-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.5), transparent 70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(37,99,235,0.4); }
+  100% { box-shadow: 0 0 25px rgba(37,99,235,0.9); }
+}
+
+.admin-img {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  border: 3px solid #2563eb;
+  object-fit: cover;
+}
+
+form {
+  text-align: left;
+  width: 100%;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+label {
+  font-size: 13px;
+  color: #d1d5db;
+  margin-bottom: 6px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px 38px 10px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: #1f2937;
+  color: #f9fafb;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #2563eb;
+  background: #111827;
+  box-shadow: 0 0 8px rgba(37,99,235,0.5);
+}
+
+/* Eye icon */
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle-password:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 3px #60a5fa);
+}
+
+.btn {
+  width: 100%;
+  padding: 11px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #6366f1);
+  background-size: 200% auto;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.4s ease;
+  box-shadow: 0 0 12px rgba(59,130,246,0.3);
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  background-position: right center;
+  box-shadow: 0 0 20px rgba(59,130,246,0.5);
+}
+
+.toggle-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #93c5fd;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle-link:hover {
+  color: #60a5fa;
+  text-shadow: 0 0 6px rgba(96,165,250,0.4);
+}
+
+.error {
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.forgot-links {
+  text-align: right;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.forgot-links a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.forgot-links a:hover {
+  text-decoration: underline;
+}
+
+/* Smooth toggle animation */
+.form-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+}
+
+.form-section {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form-section.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 30px 20px;
+    border-radius: 15px;
+  }
+  input {
+    font-size: 13px;
+  }
+  .btn {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-wrapper">
+    <!-- Login Form -->
+    <div id="login-form" class="form-section active">
+      <div class="admin-img-container">
+        <img src="{{ url_for('static', filename='admin.png') }}" class="admin-img" alt="Admin">
+      </div>
+      <h2>Admin Login</h2>
+      {% if error %}<p class="error">{{ error }}</p>{% endif %}
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" name="password" required>
+          <svg onclick="togglePassword('loginPassword')" class="toggle-password" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+        <div class="forgot-links">
+          <a href="#">Forgot Username?</a> | <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
+      <span class="toggle-link" onclick="toggleForms()">New Admin? Create Account</span>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="form-section">
+      <div class="admin-img-container">
+        <img src="{{ url_for('static', filename='admin.png') }}" class="admin-img" alt="Admin">
+      </div>
+      <h2>New Admin Signup</h2>
+      <form method="POST" action="/signup">
+        <div class="form-group"><label>Full Name</label><input type="text" name="fullname" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+        <div class="form-group"><label>Phone</label><input type="tel" name="phone" pattern="[0-9]{10}" required></div>
+        <div class="form-group"><label>Username</label><input type="text" name="username" required></div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signupPassword" name="password" required>
+          <svg onclick="togglePassword('signupPassword')" class="toggle-password" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirm_password" required>
+          <svg onclick="togglePassword('confirmPassword')" class="toggle-password" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+        <button type="submit" class="btn">Signup</button>
+      </form>
+      <span class="toggle-link" onclick="toggleForms()">Already have an account? Login</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleForms() {
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  loginForm.classList.toggle('active');
+  signupForm.classList.toggle('active');
+}
+
+function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+</script>
+
+</body>
+</html>

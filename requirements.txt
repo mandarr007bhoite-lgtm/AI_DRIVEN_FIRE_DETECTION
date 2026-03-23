@@ -1,0 +1,12 @@
+Flask>=2.3.0
+opencv-python
+numpy
+Werkzeug
+twilio>=9.0.0
+playsound==1.2.2
+pyttsx3
+python-dotenv
+pywebpush
+cryptography
+
+
